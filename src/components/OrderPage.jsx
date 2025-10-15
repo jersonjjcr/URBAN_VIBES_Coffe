@@ -6,6 +6,8 @@ const OrderPage = ({ onClose }) => {
     name: '',
     phone: '',
     address: '',
+    reference: '',
+    paymentMethod: 'efectivo',
     notes: ''
   })
 
@@ -160,6 +162,8 @@ const OrderPage = ({ onClose }) => {
 👤 *Cliente:* ${customerInfo.name}
 📱 *Teléfono:* ${customerInfo.phone}
 📍 *Dirección:* ${customerInfo.address || 'No especificada'}
+${customerInfo.reference ? `🗺️ *Punto de referencia:* ${customerInfo.reference}` : ''}
+💳 *Método de pago:* ${customerInfo.paymentMethod === 'efectivo' ? 'Efectivo 💵' : 'Transferencia 🏦'}
 
 ☕ *PEDIDO:*
 ${orderDetails}
@@ -323,6 +327,38 @@ ${customerInfo.notes ? `📝 *Notas:* ${customerInfo.notes}` : ''}
                     value={customerInfo.address}
                     onChange={handleInputChange}
                   />
+                  <input
+                    type="text"
+                    name="reference"
+                    placeholder="Punto de referencia (ej: Frente al parque, casa azul)"
+                    value={customerInfo.reference}
+                    onChange={handleInputChange}
+                  />
+                  <div className="payment-method">
+                    <label>Método de pago:</label>
+                    <div className="payment-options">
+                      <label className="radio-option">
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="efectivo"
+                          checked={customerInfo.paymentMethod === 'efectivo'}
+                          onChange={handleInputChange}
+                        />
+                        <span>💵 Efectivo</span>
+                      </label>
+                      <label className="radio-option">
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="transferencia"
+                          checked={customerInfo.paymentMethod === 'transferencia'}
+                          onChange={handleInputChange}
+                        />
+                        <span>🏦 Transferencia</span>
+                      </label>
+                    </div>
+                  </div>
                   <textarea
                     name="notes"
                     placeholder="Notas especiales (opcional)"
